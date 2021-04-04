@@ -8,12 +8,9 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.artemmotuznyi.resourcecompletion.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.artemmotuznyi.resourcecompletion.services.MyProjectService"/>
+        <completion.contributor
+                language="XML"
+                implementationClass="com.github.artemmotuznyi.resourcecompletion.ResourceCompletionContributor"
+        />
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.artemmotuznyi.resourcecompletion.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
 </idea-plugin>
