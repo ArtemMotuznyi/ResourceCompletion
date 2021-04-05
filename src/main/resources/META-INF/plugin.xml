@@ -1,11 +1,11 @@
 <idea-plugin>
     <id>com.github.artemmotuznyi.resourcecompletion</id>
-    <name>ResourceCompletion</name>
+    <name>Serval</name>
     <vendor>artemmotuznyi</vendor>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
-    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <completion.contributor

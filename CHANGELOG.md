@@ -1,7 +1,7 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# ResourceCompletion Changelog
+# Serval Changelog
 
-## [Unreleased]
+## [0.0.1]
 ### Added
-- Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
+- Implemented a search for string resources by value 
