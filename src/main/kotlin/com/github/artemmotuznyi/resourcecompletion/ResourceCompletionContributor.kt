@@ -4,10 +4,8 @@ import com.github.artemmotuznyi.resourcecompletion.provider.StringResourcesForXm
 import com.intellij.codeInsight.completion.CompletionContributor
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.patterns.PlatformPatterns
-import com.intellij.patterns.StandardPatterns
 import com.intellij.patterns.XmlPatterns
 import com.intellij.psi.xml.XmlTokenType
-
 
 class ResourceCompletionContributor : CompletionContributor() {
 
@@ -23,4 +21,3 @@ class ResourceCompletionContributor : CompletionContributor() {
             )
         )
 }
-
