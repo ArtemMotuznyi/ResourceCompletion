@@ -1,3 +1,8 @@
 package com.github.artemmotuznyi.resourcecompletion.provider
 
-class StringResourcesForXmlProvider : BaseResourceValueCompletionProvider(listOf("string", "plural"))
+import com.github.artemmotuznyi.SourceCodeType
+import com.github.artemmotuznyi.StringsResourceManager
+
+class StringResourcesForXmlProvider(sourceCodeType: SourceCodeType) : BaseResourceValueCompletionProvider(
+    StringsResourceManager(sourceCodeType)
+)
