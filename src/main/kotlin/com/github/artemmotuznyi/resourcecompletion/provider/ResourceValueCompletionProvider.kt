@@ -1,11 +1,10 @@
 package com.github.artemmotuznyi.resourcecompletion.provider
 
-import com.github.artemmotuznyi.ResourceManager
+import com.github.artemmotuznyi.resourcecompletion.ResourceManager
 import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.completion.CompletionProvider
 import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.lookup.LookupElement
-import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.JDOMUtil
 import com.intellij.psi.PsiFile
@@ -17,7 +16,7 @@ import org.jdom.JDOMException
 import org.jetbrains.annotations.NotNull
 import java.io.IOException
 
-abstract class BaseResourceValueCompletionProvider(
+class ResourceValueCompletionProvider(
     private val resourceManager: ResourceManager,
 ) : CompletionProvider<CompletionParameters>() {
 
@@ -60,13 +59,17 @@ abstract class BaseResourceValueCompletionProvider(
 
     private fun getElementsFromResourceFiles(files: List<PsiFile>): List<Element> {
         return try {
-            files
+            val test = files
                 .map {
                     val root = JDOMUtil.load(it.text)
                     root.getChild(TAG_RESOURCES) ?: root
                 }
-                .filter { it.name == TAG_RESOURCES }
-                .flatMap { it.children.orEmpty() }
+
+            test.filter {
+                it.name == TAG_RESOURCES
+            }.flatMap {
+                it.children.orEmpty()
+            }
         } catch (e: JDOMException) {
             emptyList()
         } catch (e: IOException) {
@@ -75,6 +78,6 @@ abstract class BaseResourceValueCompletionProvider(
     }
 
     private fun getCompletionResult(elements: List<Element>, prefix: @NotNull String): List<LookupElement> {
-        return resourceManager.generateResources(elements, prefix)
+        return resourceManager.generateResourcesCompletion(elements, prefix)
     }
 }

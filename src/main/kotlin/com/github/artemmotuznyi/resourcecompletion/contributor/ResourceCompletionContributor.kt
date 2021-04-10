@@ -1,7 +1,8 @@
-package com.github.artemmotuznyi.resourcecompletion
+package com.github.artemmotuznyi.resourcecompletion.contributor
 
-import com.github.artemmotuznyi.SourceCodeType
-import com.github.artemmotuznyi.resourcecompletion.provider.StringResourcesForXmlProvider
+import com.github.artemmotuznyi.resourcecompletion.ResourceManager
+import com.github.artemmotuznyi.resourcecompletion.SourceCodeType
+import com.github.artemmotuznyi.resourcecompletion.provider.ResourceValueCompletionProvider
 import com.intellij.codeInsight.completion.CompletionContributor
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.patterns.PlatformPatterns
@@ -14,7 +15,9 @@ class ResourceCompletionContributor : CompletionContributor() {
         extend(
             CompletionType.BASIC,
             getPsiElementForStringResource(),
-            StringResourcesForXmlProvider(SourceCodeType.XML)
+            ResourceValueCompletionProvider(
+                ResourceManager(SourceCodeType.Xml.getStringsResourceTypes())
+            )
         )
     }
 
