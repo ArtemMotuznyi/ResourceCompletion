@@ -9,7 +9,7 @@ import com.intellij.patterns.PlatformPatterns
 import com.intellij.patterns.XmlPatterns
 import com.intellij.psi.xml.XmlTokenType
 
-class ResourceCompletionContributor : CompletionContributor() {
+class ResourceByValueCompletionContributor : CompletionContributor() {
 
     init {
         extend(
