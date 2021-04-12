@@ -19,6 +19,14 @@ class ResourceByValueCompletionContributor : CompletionContributor() {
                 ResourceManager(SourceCodeType.Xml.getStringsResourceTypes())
             )
         )
+
+        extend(
+            CompletionType.BASIC,
+            getPsiElementForColorResource(),
+            ResourceValueCompletionProvider(
+                ResourceManager(SourceCodeType.Xml.getColorResourceTypes())
+            )
+        )
     }
 
     private fun getPsiElementForStringResource() =
@@ -26,6 +34,14 @@ class ResourceByValueCompletionContributor : CompletionContributor() {
             XmlPatterns.xmlAttributeValue().withParent(
                 XmlPatterns.xmlAttribute().withChild(XmlPatterns.psiElement(XmlTokenType.XML_NAME))
                     .withLocalName("text")
+            )
+        )
+
+    private fun getPsiElementForColorResource() =
+        PlatformPatterns.psiElement(XmlTokenType.XML_ATTRIBUTE_VALUE_TOKEN).withParent(
+            XmlPatterns.xmlAttributeValue().withParent(
+                XmlPatterns.xmlAttribute().withChild(XmlPatterns.psiElement(XmlTokenType.XML_NAME))
+                    .withLocalName("textColor")
             )
         )
 }
