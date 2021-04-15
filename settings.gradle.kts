@@ -1,1 +1,1 @@
-rootProject.name = "ResourceCompletion"
+rootProject.name = "Serval"
