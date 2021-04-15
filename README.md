@@ -1,8 +1,8 @@
-# ResourceCompletion
+# Serval
 
-![Build](https://github.com/ArtemMotuznyi/ResourceCompletion/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/16497-serval)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/16497-serval)
+![Build](https://github.com/ArtemMotuznyi/Serval/workflows/Build/badge.svg)
+[![Version](https://img.shields.io/jetbrains/plugin/v/16497-serval.svg)](https://plugins.jetbrains.com/plugin/16497-serval)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/16497-serval.svg)](https://plugins.jetbrains.com/plugin/16497-serval)
 ---
 Based on the [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template).
 
