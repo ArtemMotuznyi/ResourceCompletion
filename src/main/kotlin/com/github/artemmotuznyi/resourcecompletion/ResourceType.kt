@@ -6,42 +6,54 @@ import java.lang.IllegalArgumentException
 
 enum class ResourceType {
 
+
     STRING {
-        override fun isElementValueValid(element: Element, inputValue: String) =
-            element.text.contains(inputValue)
+        override val availableXmlAttributes: List<String>
+            get() = listOf("text", "hint", "contentDescription")
+
+        override fun isResourceValueValid(element: Element, inputValue: String) = element.text.contains(inputValue)
     },
 
     PLURALS {
-        override fun isElementValueValid(element: Element, inputValue: String): Boolean {
-            return element.content.any { it.value.contains(inputValue) }
-        }
-
-        override fun getTag(): String = STRING.toString()
+        override fun isResourceValueValid(element: Element, inputValue: String): Boolean =
+            element.content.any { it.value.contains(inputValue) }
     },
 
     COLOR {
-        override fun isElementValueValid(element: Element, inputValue: String): Boolean {
-            val isColorElement = COLOR_MATCHER.toRegex().matches(inputValue)
-            return isColorElement && element.text.contains(inputValue)
+        override val availableXmlAttributes: List<String>
+            get() = listOf("textColor", "textColorHint", "background")
+
+        private val colorPattern = "^#([a-fA-F0-9]{1,6})$"
+
+        override fun isResourceValueValid(element: Element, inputValue: String): Boolean {
+            val isColorElement = colorPattern.toRegex().matches(inputValue)
+            return isColorElement && element.text.contains(inputValue, true)
         }
+    },
+
+    STRING_ARRAY {
+        override val tag: String
+            get() = "array"
+
+        override fun isResourceValueValid(element: Element, inputValue: String): Boolean = false
+        override fun toString(): String = super.toString().replace("_", "-")
     };
 
-    abstract fun isElementValueValid(element: Element, inputValue: String): Boolean
+    open val tag: String
+        get() = toString()
+    open val availableXmlAttributes: List<String>
+        get() = emptyList()
 
-    override fun toString(): String {
-        return name.toLowerCase()
-    }
-
-    open fun getTag(): String = toString()
+    abstract fun isResourceValueValid(element: Element, inputValue: String): Boolean
+    override fun toString(): String = name.toLowerCase()
 
     companion object {
-        private const val COLOR_MATCHER = "^#([a-fA-F0-9]{1,6})$"
 
-
-        fun getTypeByElement(element: Element) = when (element.name) {
+        fun getTypeByElementName(elementName: String) = when (elementName) {
             STRING.toString() -> STRING
             PLURALS.toString() -> PLURALS
             COLOR.toString() -> COLOR
+            STRING_ARRAY.toString() -> STRING_ARRAY
             else -> throw IllegalArgumentException() //TODO
         }
 

@@ -6,26 +6,26 @@ import org.jdom.Element
 class ResourceElement(
     private val element: Element,
     private val inputValue: String,
-    sourceCodeType: SourceCodeType
+    private val completionPattern: String
 ) : LookupElement() {
 
     companion object {
         private const val ATTRIBUTE_KEY = "name"
     }
 
-    private val type: ResourceType = ResourceType.getTypeByElement(element)
+    private val type: ResourceType = ResourceType.getTypeByElementName(element.name)
     private val resourceKey: String = element.getAttributeValue(ATTRIBUTE_KEY)
 
     private val completionValue by lazy {
         String.format(
-            sourceCodeType.pattern,
-            type.getTag(),
+            completionPattern,
+            type.tag,
             resourceKey
         )
     }
     private val allLookupStrings by lazy { sortedSetOf(inputValue, completionValue) }
 
-    fun isResourceValueValid(): Boolean = type.isElementValueValid(element, inputValue)
+    fun isResourceValueValid(): Boolean = type.isResourceValueValid(element, inputValue)
 
     override fun getLookupString(): String = completionValue
 
