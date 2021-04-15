@@ -49,7 +49,6 @@ intellij {
 // Read more: https://github.com/JetBrains/gradle-changelog-plugin
 changelog {
     version = properties("pluginVersion")
-    groups = emptyList()
 }
 
 // Configure detekt plugin.
