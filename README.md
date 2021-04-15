@@ -44,10 +44,10 @@ Plugin for search resource in android project by value.
   
 
 ## Roadmap
-- Implemented a search for string resources by value in Kotlin|Java code
-- Implemented a search for color resources by value in Kotlin|Java code
-- Implemented a search for plurals resources by value in Kotlin|Java code
-- Implemented a search for array resources by value in Kotlin|Java code
+- Implement a search for string resources by value in Kotlin|Java code
+- Implement a search for color resources by value in Kotlin|Java code
+- Implement a search for plurals resources by value in Kotlin|Java code
+- Implement a search for array resources by value in Kotlin|Java code
 - Increase the number of available view attributes
 - Improve the implementation of searching for files with resources
 
