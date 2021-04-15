@@ -9,7 +9,7 @@ Plugin for search resource in android project by value.
 
 #### Available resources
 
-|  Resource | View Xml Attributes   | Kotlin-Java  |
+|  Resource | XML | Kotlin-Java  |
 | -------------- | ------------------- | -----------------|
 |  String | - text</br>- hint</br>  | - |
 |  Color  | - textColor</br>- textColorHint</br>- background| - |

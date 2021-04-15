@@ -23,12 +23,16 @@ class ResourceElement(
             resourceKey
         )
     }
-    private val allLookupStrings by lazy { sortedSetOf(inputValue, completionValue) }
+    private val allLookupStrings by lazy {
+        sortedSetOf(
+            inputValue,
+            completionValue
+        )
+    }
 
     fun isResourceValueValid(): Boolean = type.isResourceValueValid(element, inputValue)
 
     override fun getLookupString(): String = completionValue
 
     override fun getAllLookupStrings(): MutableSet<String> = allLookupStrings
-
 }

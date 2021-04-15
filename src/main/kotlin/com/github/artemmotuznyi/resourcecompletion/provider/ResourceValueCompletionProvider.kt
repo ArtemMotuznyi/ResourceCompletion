@@ -32,18 +32,15 @@ class ResourceValueCompletionProvider(
         context: ProcessingContext,
         result: CompletionResultSet
     ) {
-        parameters.editor.project?.let {
-            val prefix = result.prefixMatcher.prefix
-            if (prefix.isNotBlank()) {
-                val files = getResourceFiles(it)
-                if (files.isNotEmpty()) {
+        parameters.editor.project?.let { project ->
+            result.prefixMatcher.prefix
+                .takeIf { it.isNotEmpty() }
+                ?.let { prefix ->
+                    val files = getResourceFiles(project)
                     val resourceElements = getElementsFromResourceFiles(files)
-                    if (resourceElements.isNotEmpty()) {
-                        val completions = generateResourcesCompletion(resourceElements, prefix)
-                        result.addAllElements(completions)
-                    }
+                    val completions = generateResourcesCompletion(resourceElements, prefix)
+                    result.addAllElements(completions)
                 }
-            }
         }
     }
 
@@ -69,18 +66,19 @@ class ResourceValueCompletionProvider(
                 it.children.orEmpty()
             }
         } catch (e: JDOMException) {
+            println("getElementsFromResourceFiles: Something went wrong $e")
             emptyList()
         } catch (e: IOException) {
+            println("getElementsFromResourceFiles: Something went wrong $e")
             emptyList()
         }
     }
 
-    private fun generateResourcesCompletion(
-        elements: List<Element>,
-        inputValue: String
-    ): List<ResourceElement> = filterElementsByType(elements).map {
-        ResourceElement(it, inputValue, completionPattern)
-    }.filter { it.isResourceValueValid() }.distinctBy { it.lookupString }
+    private fun generateResourcesCompletion(elements: List<Element>, inputValue: String): List<ResourceElement> =
+        filterElementsByType(elements)
+            .map { ResourceElement(it, inputValue, completionPattern) }
+            .filter { it.isResourceValueValid() }
+            .distinctBy { it.lookupString }
 
     private fun filterElementsByType(elements: List<Element>) =
         elements.filterSmart { availableTypes.any { type -> type.toString() == it.name } }

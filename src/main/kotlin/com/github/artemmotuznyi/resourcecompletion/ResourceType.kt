@@ -1,11 +1,9 @@
-package com.github.artemmotuznyi.resourcecompletion;
+package com.github.artemmotuznyi.resourcecompletion
 
 import org.jdom.Element
 import java.lang.IllegalArgumentException
 
-
 enum class ResourceType {
-
 
     STRING {
         override val availableXmlAttributes: List<String>
@@ -54,8 +52,7 @@ enum class ResourceType {
             PLURALS.toString() -> PLURALS
             COLOR.toString() -> COLOR
             STRING_ARRAY.toString() -> STRING_ARRAY
-            else -> throw IllegalArgumentException() //TODO
+            else -> throw IllegalArgumentException("Unknown resource tag $elementName")
         }
-
     }
 }

@@ -5,6 +5,7 @@ import com.github.artemmotuznyi.resourcecompletion.provider.ResourceValueComplet
 import com.intellij.codeInsight.completion.CompletionContributor
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.patterns.PlatformPatterns
+import com.intellij.patterns.StandardPatterns
 import com.intellij.patterns.XmlPatterns
 import com.intellij.psi.xml.XmlTokenType
 
@@ -31,7 +32,7 @@ class XmlResourceByValueCompletionContributor : CompletionContributor() {
         PlatformPatterns.psiElement(XmlTokenType.XML_ATTRIBUTE_VALUE_TOKEN).withParent(
             XmlPatterns.xmlAttributeValue().withParent(
                 XmlPatterns.xmlAttribute().withChild(XmlPatterns.psiElement(XmlTokenType.XML_NAME))
-                    .withLocalName(*type.availableXmlAttributes.toTypedArray())
+                    .withLocalName(StandardPatterns.string().oneOf(type.availableXmlAttributes))
             )
         )
 }
