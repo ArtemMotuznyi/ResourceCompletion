@@ -10,7 +10,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <completion.contributor
                 language="XML"
-                implementationClass="com.github.artemmotuznyi.resourcecompletion.contributor.ResourceByValueCompletionContributor"
+                implementationClass="com.github.artemmotuznyi.resourcecompletion.contributor.XmlResourceByValueCompletionContributor"
         />
     </extensions>
 </idea-plugin>
