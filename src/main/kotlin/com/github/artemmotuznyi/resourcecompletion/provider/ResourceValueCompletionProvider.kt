@@ -16,8 +16,6 @@ import org.jdom.Element
 import org.jdom.JDOMException
 import java.io.File
 import java.io.IOException
-import kotlin.time.ExperimentalTime
-import kotlin.time.measureTimedValue
 
 class ResourceValueCompletionProvider(
     private val completionPattern: String,
@@ -39,17 +37,8 @@ class ResourceValueCompletionProvider(
             result.prefixMatcher.prefix
                 .takeIf { it.isNotEmpty() }
                 ?.let { prefix ->
-
-                    val getResourceFilesDuration = System.currentTimeMillis()
-                    val files = getResourceFiles(project)
-                    println("getResourceFiles(project) : ${System.currentTimeMillis() - getResourceFilesDuration}")
-
-
-                    val getResourceFilesByFolderDuration = System.currentTimeMillis()
-                    val files2 = getResourceFilesByFolder(project)
-                    println("getResourceFilesByFolder(project) : ${System.currentTimeMillis() - getResourceFilesByFolderDuration}")
-
-                    val resourceElements = getElementsFromResourceFiles(files2)
+                    val files = getResourceFilesByFolder(project)
+                    val resourceElements = getElementsFromResourceFiles(files)
                     val completions = generateResourcesCompletion(resourceElements, prefix)
                     result.addAllElements(completions)
                 }
@@ -60,17 +49,6 @@ class ResourceValueCompletionProvider(
         val files = File(project.basePath, VALUE_FOLDER).listFiles().orEmpty()
         return files.filter { XML_EXTENSION.contains(it.extension) }.flatMap {
             FilenameIndex.getFilesByName(project, it.name, GlobalSearchScope.projectScope(project)).toList()
-        }
-    }
-
-    private fun getResourceFiles(project: Project): List<PsiFile> {
-        val filenames = FilenameIndex.getAllFilenames(project)
-        return filenames.filter {
-            it.contains(XML_EXTENSION)
-        }.flatMap {
-            FilenameIndex.getFilesByName(project, it, GlobalSearchScope.projectScope(project)).toList()
-        }.filter {
-            it.virtualFile.path.contains(VALUE_FOLDER)
         }
     }
 
